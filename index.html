@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Slay the Rot — Le journal anti-burnout qui se joue comme un roguelike</title>
+<title>Slay the Rot — Bientôt / Coming soon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -22,100 +22,73 @@ p{margin:0 0 1em;max-width:62ch}
 section{padding:72px 0;border-top:1px solid var(--line)}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:20px}
+.lang{display:flex;border:2px solid var(--line);border-radius:6px;overflow:hidden}
+.lang button{font:700 .9rem "DM Sans",sans-serif;padding:7px 12px;border:0;background:transparent;color:var(--mute);cursor:pointer}
+.lang button[aria-pressed=true]{background:var(--bone);color:var(--bg)}
+.maple{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;color:var(--bone);border:2px solid var(--hp);border-radius:999px;padding:5px 14px}
+.soon{display:inline-block;background:var(--gold);color:#2a2008;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.9rem;padding:5px 12px;border-radius:4px;margin-bottom:22px}
+.sub{font-size:1.2rem;color:var(--mute);max-width:46ch;margin-top:22px}
 .btn{display:inline-block;padding:15px 24px;border-radius:6px;font-weight:700;text-decoration:none;border:2px solid var(--bone);transition:transform .12s}
 .btn:active{transform:translateY(2px)}
 .btn.main{background:var(--hp);border-color:var(--hp);color:#fff;box-shadow:0 5px 0 #8f2434}
 .btn.alt{background:transparent;color:var(--bone)}
 .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
-.sub{font-size:1.2rem;color:var(--mute);max-width:46ch;margin-top:22px}
-/* boss bar */
-.boss{margin-top:40px;background:var(--panel);border:2px solid var(--line);border-radius:8px;padding:16px 18px}
-.boss-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-weight:700}
-.bar{height:26px;background:#12161f;border:2px solid var(--line);border-radius:4px;margin:10px 0;overflow:hidden}
-.bar i{display:block;height:100%;width:100%;background:repeating-linear-gradient(90deg,var(--hp) 0 14px,#c93548 14px 16px);animation:hit 1.6s .3s cubic-bezier(.2,.8,.2,1) forwards}
-@keyframes hit{to{width:63%}}
-.boss small{color:var(--mute)}
-/* problem */
-.two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.stat{border-left:4px solid var(--hp);padding:4px 0 4px 18px;margin-bottom:22px}
-.stat b{font:800 2.2rem "Bricolage Grotesque",sans-serif;display:block;color:var(--gold)}
-.dead{display:flex;gap:6px;margin:16px 0 8px}
-.dead span{width:34px;height:42px;border:2px solid var(--line);border-radius:4px;display:grid;place-items:center;font-size:.8rem;color:var(--mute)}
-.dead span.on{border-color:var(--xp);color:var(--xp)}
 /* map */
 .map{background:var(--panel);border:2px solid var(--line);border-radius:8px;padding:12px;overflow-x:auto}
 .map svg{display:block;min-width:620px;width:100%;height:auto}
-.nodes{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
-.node{border-top:4px solid var(--c,var(--line))}
-.node .mood{color:var(--bone);margin-bottom:6px}
-.node.boss-node{grid-column:1/-1;background:#2c2438}
-.tip{border-left:4px solid var(--gold);padding:4px 0 4px 18px;color:var(--mute)}
-.node{background:var(--panel);border:2px solid var(--line);border-radius:8px;padding:18px}
+.nodes{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0 0}
+.node{background:var(--panel);border:2px solid var(--line);border-top:4px solid var(--c,var(--line));border-radius:8px;padding:18px}
 .node h3{margin-bottom:6px}
 .node p{margin:0;color:var(--mute)}
-.xp{background:var(--panel);border:2px solid var(--xp);border-radius:8px;padding:24px}
-.modes{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
-.modes button{font:700 1rem "DM Sans",sans-serif;padding:11px 18px;border-radius:6px;border:2px solid var(--line);background:#12161f;color:var(--bone);cursor:pointer}
-.modes button[aria-pressed=true]{border-color:var(--xp);background:var(--xp);color:#10242a}
-.xpout{font:800 clamp(2.4rem,7vw,4rem) "Bricolage Grotesque",sans-serif;color:var(--xp)}
+.node.boss-node{grid-column:1/-1;background:#2c2438}
+/* bonuses */
+.loot{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:10px}
+.loot div{background:var(--panel);border:2px solid var(--line);border-radius:8px;padding:22px}
+.loot b{display:block;font-size:2rem;margin-bottom:8px}
+.loot h3{margin-bottom:8px}
+.loot p{margin:0;color:var(--mute)}
 /* pricing */
-.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch;margin-top:10px}
 .tier{background:var(--panel);border:2px solid var(--line);border-radius:8px;padding:26px;display:flex;flex-direction:column}
 .tier .price{font:800 3.2rem "Bricolage Grotesque",sans-serif;margin:8px 0}
 .tier ul{padding-left:18px;margin:0 0 22px;color:var(--mute)}
-.tier .btn{margin-top:auto;text-align:center}
 .tier.hot{border-color:var(--hp);background:#2c2438;transform:translateY(-10px)}
 .tier.ghost .price{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--hp)}
 .tag{align-self:flex-start;background:var(--gold);color:#2a2008;font-weight:700;font-size:.85rem;padding:3px 10px;border-radius:4px}
-.timer{margin-top:34px;font-weight:700;color:var(--gold)}
-/* logistics */
-.log{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.log div{border-top:3px solid var(--xp);padding-top:14px}
+.note{margin-top:30px;color:var(--mute)}
+/* canada */
+.ca{display:flex;gap:22px;align-items:center}
+.ca .leaf{font-size:4rem;line-height:1}
 footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);font-size:.95rem}
-@media(max-width:820px){.two,.tiers,.log,.nodes{grid-template-columns:1fr}.tier.hot{transform:none}}
-@media(prefers-reduced-motion:reduce){.bar i{animation:none;width:63%}html{scroll-behavior:auto}}
+@media(max-width:820px){.tiers,.loot,.nodes{grid-template-columns:1fr}.tier.hot{transform:none}.ca{flex-direction:column;align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 <header>
-<div class="wrap" style="padding-top:64px;padding-bottom:64px">
-  <p style="color:var(--gold);font-weight:700;margin-bottom:18px">Précommande ouverte — la Run 1 est en financement</p>
-  <h1>Slay the Rot.</h1>
-  <p class="sub">Le journal anti-burnout qui se joue comme un roguelike. Une carte, 14 jours, un crayon, quelques minutes par jour. Zéro lotus, zéro morale.</p>
-
-  <div class="boss" role="group" aria-label="Progression de la campagne">
-    <div class="boss-top"><span>Boss : LE ROT</span><span>1 890 $ / 3 000 $ de la Run 1</span></div>
-    <div class="bar" role="progressbar" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100" aria-label="Campagne financée à 63 %"><i></i></div>
-    <small>63 % financé. Chaque précommande lui enlève des HP.</small>
+<div class="wrap top">
+  <span class="maple">🍁 <span data-i18n="madeBadge">Fait au Canada</span></span>
+  <div class="lang" role="group" aria-label="Langue / Language">
+    <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
   </div>
-
+</div>
+<div class="wrap" style="padding-top:56px;padding-bottom:72px">
+  <span class="soon" data-i18n="soon">Bientôt disponible</span>
+  <h1>Slay the Rot.</h1>
+  <p class="sub" data-i18n="tagline">Le journal anti-burnout qui se joue comme un roguelike. Une carte, 14 jours, un crayon, quelques minutes par jour. Zéro lotus, zéro morale.</p>
+  <p data-i18n="heroNote">Les précommandes ouvrent bientôt. Les premiers à embarquer partent avec du loot que personne d'autre va avoir.</p>
   <div class="cta">
-    <a class="btn main" href="#paliers">Précommander — 15 $</a>
-    <a class="btn alt" href="#paliers">Supporter — 10 $</a>
+    <a class="btn main" href="#bonus" data-i18n="ctaBonus">Voir les bonus de précommande</a>
+    <a class="btn alt" href="#paliers" data-i18n="ctaTiers">Voir les paliers</a>
   </div>
 </div>
 </header>
 
-<section id="constat"><div class="wrap">
-  <h2>Ton carnet de gratitude est mort au jour 4.</h2>
-  <div class="two">
-    <div>
-      <p>Page blanche, citation inspirante, culpabilité dès que tu sautes une journée. Pis le carnet finit sur la pile des affaires «&nbsp;que je vais reprendre&nbsp;».</p>
-      <div class="dead" aria-label="Jours 1 à 7 d'un carnet classique"><span class="on">1</span><span class="on">2</span><span class="on">3</span><span class="on">4</span><span>5</span><span>6</span><span>7</span></div>
-      <p style="color:var(--mute);font-size:.95rem">Game over au jour 4. Classique.</p>
-    </div>
-    <div>
-      <div class="stat"><b>8 h</b>d'écran, pis ton cerveau roule encore en arrière-plan à 23 h.</div>
-      <div class="stat"><b>0 tolérance</b>pour les «&nbsp;respire dans ta fleur de lotus&nbsp;» pis les citations qui te font la morale.</div>
-      <p>T'as pas besoin d'un autre écran. T'as besoin d'un truc au crayon, rapide, qui te lâche patience quand t'es à boutte pis que t'as sauté une journée.</p>
-    </div>
-  </div>
-</div></section>
-
 <section id="moteur"><div class="wrap">
-  <h2>Une run de 14 jours. Tu choisis ta route.</h2>
-  <p>Chaque run commence par une carte. Chaque rond, c'est un événement : une page qui t'attend plus loin dans le livre. La couleur pis l'icône te disent quel genre de rencontre c'est, le numéro te dit à quelle page aller. Tu suis un seul chemin, une branche par jour, jusqu'au boss.</p>
-  <p>Tu sais pas d'avance ce qu'il y a derrière, pis c'est correct de même : la surprise fait partie de la game.</p>
+  <h2 data-i18n="runTitle">Une run de 14 jours. Tu choisis ta route.</h2>
+  <p data-i18n="runP">Chaque run commence par une carte. Chaque rond, c'est un événement : une page qui t'attend plus loin dans le livre. Tu suis un seul chemin, une branche par jour, jusqu'au boss.</p>
 
   <div class="map" aria-hidden="true">
   <svg viewBox="0 0 700 200">
@@ -142,85 +115,166 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
   </div>
 
   <div class="nodes">
-    <div class="node" style="--c:var(--combat)"><h3>⚔️ Combat</h3><p class="mood">Intense, défoulant, un peu sauvage.</p><p>Sortir de ton système ce qui te gruge en arrière-plan, pis le neutraliser pour de bon.</p></div>
-    <div class="node" style="--c:var(--reset)"><h3>🌬️ Reset</h3><p class="mood">Lent, physique, presque silencieux.</p><p>Faire redescendre la pression du corps pis vider la mémoire vive quand t'es en overheat.</p></div>
-    <div class="node" style="--c:var(--healing)"><h3>🧪 Healing</h3><p class="mood">Doux, chaleureux, sécurisant.</p><p>Regagner des HP en remarquant ce qui va déjà bien pis en te rappelant ce que t'as déjà survécu.</p></div>
-    <div class="node" style="--c:var(--oracle)"><h3>👁️ Oracle</h3><p class="mood">Lucide, direct, un brin piquant.</p><p>Regarder une vérité en face pour réaligner tes stats sur ce qui compte vraiment pour toi.</p></div>
-    <div class="node" style="--c:var(--inspection)"><h3>🔍 Inspection</h3><p class="mood">Neutre, clinique, sans jugement.</p><p>Prendre des données concrètes sur ton corps, ton temps ou ton budget pour voir clair avant d'agir.</p></div>
-    <div class="node" style="--c:var(--shop)"><h3>🛒 Shop</h3><p class="mood">Léger, gourmand, sans culpabilité.</p><p>Te gâter pour vrai pis recharger ta jauge de plaisir, sans avoir à te justifier.</p></div>
-    <div class="node boss-node" style="--c:var(--boss)"><h3>💀 Boss</h3><p class="mood">Épique, exigeant, la dernière ligne droite.</p><p>Tout ce que t'as farmé pendant la run, tu le ramènes pour un combat final en 3 phases. Tous les chemins finissent ici, juste avant l'écran de victoire.</p></div>
+    <div class="node" style="--c:var(--combat)"><h3>⚔️ Combat</h3><p data-i18n="nCombat">Sortir de ton système ce qui te gruge en arrière-plan, pis le neutraliser pour de bon.</p></div>
+    <div class="node" style="--c:var(--reset)"><h3>🌬️ Reset</h3><p data-i18n="nReset">Faire redescendre la pression du corps pis vider la mémoire vive quand t'es en overheat.</p></div>
+    <div class="node" style="--c:var(--healing)"><h3>🧪 Healing</h3><p data-i18n="nHealing">Regagner des HP en remarquant ce qui va déjà bien pis en te rappelant ce que t'as déjà survécu.</p></div>
+    <div class="node" style="--c:var(--oracle)"><h3>👁️ Oracle</h3><p data-i18n="nOracle">Regarder une vérité en face pour réaligner tes stats sur ce qui compte vraiment pour toi.</p></div>
+    <div class="node" style="--c:var(--inspection)"><h3>🔍 Inspection</h3><p data-i18n="nInspection">Prendre des données concrètes sur ton corps, ton temps ou ton budget pour voir clair avant d'agir.</p></div>
+    <div class="node" style="--c:var(--shop)"><h3>🛒 Shop</h3><p data-i18n="nShop">Te gâter pour vrai pis recharger ta jauge de plaisir, sans avoir à te justifier.</p></div>
+    <div class="node boss-node" style="--c:var(--boss)"><h3>💀 Boss</h3><p data-i18n="nBoss">Tout ce que t'as farmé pendant la run, tu le ramènes pour un combat final en 3 phases.</p></div>
   </div>
+</div></section>
 
-  <p class="tip"><strong style="color:var(--gold)">Un truc de vétéran :</strong> regarde ta jauge avant de choisir une branche. Une journée à boutte appelle un Reset ou un Healing ; une journée où t'as du jus en masse, c'est le bon moment pour aller chercher un Combat ou un Oracle.</p>
-
-  <div class="xp" style="margin-top:28px">
-    <h3>Écran de victoire : calcule ton XP</h3>
-    <p style="margin:8px 0 0;color:var(--mute)">Chaque page finie te donne de l'XP. À la fin de la run, tu fais le total, pis c'est ton état d'esprit qui donne le multiplicateur — pas ta productivité. Exemple avec 100 XP :</p>
-    <div class="modes" role="group" aria-label="Mode d'esprit">
-      <button type="button" data-m="1" aria-pressed="true">Survie ×1.0</button>
-      <button type="button" data-m="1.2" aria-pressed="false">Résilience ×1.2</button>
-      <button type="button" data-m="1.5" aria-pressed="false">Conquérant ×1.5</button>
-    </div>
-    <div class="xpout" aria-live="polite"><span id="xp">100</span> XP</div>
-    <p style="margin:6px 0 0;color:var(--mute);font-size:.95rem">Mode Survie, c'est « j'ai fait ce que j'ai pu ». Pis ça compte en masse.</p>
+<section id="bonus"><div class="wrap">
+  <h2 data-i18n="bonusTitle">Bonus de précommande.</h2>
+  <p style="color:var(--mute)" data-i18n="bonusP">Du loot réservé à ceux qui embarquent avant la sortie.</p>
+  <div class="loot">
+    <div><b>−50 %</b><h3 data-i18n="b1t">Prix Early Bird</h3><p data-i18n="b1p">15 $ au lieu de 30 $. Le prix public à la sortie sera le double.</p></div>
+    <div><b>🏛️</b><h3 data-i18n="b2t">Le panthéon des backers</h3><p data-i18n="b2p">Ton nom imprimé dans le livre, avec tous ceux qui ont rendu la Run 1 possible.</p></div>
+    <div><b>📦</b><h3 data-i18n="b3t">Premier servi</h3><p data-i18n="b3p">Ton exemplaire part dès la fin de la précommande, avant la sortie publique.</p></div>
   </div>
 </div></section>
 
 <section id="paliers"><div class="wrap">
-  <h2>Choisis ton palier.</h2>
-  <p style="color:var(--mute)">Prix public à la sortie sur Amazon : 30 $. Précommande astheure pis tu paies moitié moins.</p>
+  <h2 data-i18n="tiersTitle">Les paliers.</h2>
   <div class="tiers">
     <div class="tier">
-      <h3>Community Supporter</h3>
+      <h3 data-i18n="t1">Supporter le projet</h3>
       <div class="price">10 $</div>
-      <ul><li>Appui direct à la production de la Run 1</li><li>Version numérique complète à la sortie</li><li>Ton nom dans le panthéon des backers</li></ul>
-      <a class="btn alt" href="#">Supporter — 10 $</a>
+      <ul><li data-i18n="t1a">Appui direct à la production de la Run 1</li><li data-i18n="t1b">Version numérique complète à la sortie</li><li data-i18n="t1c">Ton nom dans le panthéon des backers</li></ul>
     </div>
     <div class="tier hot">
       <span class="tag">−50 % Early Bird</span>
-      <h3 style="margin-top:10px">Précommande officielle</h3>
+      <h3 style="margin-top:10px" data-i18n="t2">Précommande officielle</h3>
       <div class="price">15 $</div>
-      <ul><li>Ton exemplaire physique ou numérique réservé</li><li>Le journal complet : 4 mois, 8 runs</li><li>Le manuel du Player au fond du livre</li></ul>
-      <a class="btn main" href="#">Précommander — 15 $</a>
+      <ul><li data-i18n="t2a">Ton exemplaire physique ou numérique réservé</li><li data-i18n="t2b">Le journal complet : 4 mois, 8 runs</li><li data-i18n="t2c">Le manuel du Player au fond du livre</li><li data-i18n="t2d">Tous les bonus de précommande</li></ul>
     </div>
     <div class="tier ghost">
-      <h3>Prix régulier futur</h3>
+      <h3 data-i18n="t3">Prix régulier futur</h3>
       <div class="price">30 $</div>
-      <ul><li>Prix public à la sortie sur Amazon</li><li>Même loot, deux fois le prix</li></ul>
-      <a class="btn alt" href="#" aria-disabled="true" style="opacity:.45;pointer-events:none">Pas avant la sortie</a>
+      <ul><li data-i18n="t3a">Prix public à la sortie sur Amazon</li><li data-i18n="t3b">Même loot, deux fois le prix</li></ul>
     </div>
   </div>
-  <p class="timer" id="timer" aria-live="off">Rabais Early Bird : calcul en cours…</p>
+  <p class="note" data-i18n="tiersNote">Les précommandes ne sont pas encore ouvertes. Reviens bientôt.</p>
 </div></section>
 
-<section id="logistique"><div class="wrap">
-  <h2>Livraison : Amazon, point.</h2>
-  <div class="log">
-    <div><h3>Pas d'intermédiaire</h3><p>Distribué par Amazon : Kindle pour le numérique, Amazon KDP pour l'impression à la demande.</p></div>
-    <div><h3>Traitement direct</h3><p>Ton exemplaire passe par la logistique d'Amazon à la fin de la précommande. T'as rien d'autre à gérer.</p></div>
-    <div><h3>100 % au crayon</h3><p>Un crayon ou un stylo, c'est tout ton loadout. Pas d'appli, pas de notifs, pas d'ésotérisme.</p></div>
+<section id="canada"><div class="wrap ca">
+  <div class="leaf" aria-hidden="true">🍁</div>
+  <div>
+    <h2 data-i18n="caTitle">Fait au Canada.</h2>
+    <p data-i18n="caP">Écrit, illustré et conçu au Canada, par du monde fatigué, pour du monde fatigué.</p>
   </div>
-  <div class="cta"><a class="btn main" href="#paliers">Précommander — 15 $</a></div>
 </div></section>
 
-<footer><div class="wrap">Slay the Rot. Fait par du monde fatigué, pour du monde fatigué.</div></footer>
+<footer><div class="wrap" data-i18n="footer">Slay the Rot. Fait au Canada 🍁 par du monde fatigué, pour du monde fatigué.</div></footer>
 
 <script>
 (function(){
-  var out=document.getElementById('xp'),b=document.querySelectorAll('.modes button');
-  b.forEach(function(x){x.addEventListener('click',function(){
-    b.forEach(function(y){y.setAttribute('aria-pressed','false')});
-    x.setAttribute('aria-pressed','true');
-    out.textContent=Math.round(100*parseFloat(x.dataset.m));
-  })});
-  var end=new Date('2026-11-15T23:59:59-05:00').getTime(),t=document.getElementById('timer');
-  function tick(){
-    var d=end-Date.now();
-    if(d<=0){t.textContent='Le rabais Early Bird est terminé.';return}
-    var j=Math.floor(d/864e5),h=Math.floor(d%864e5/36e5);
-    t.textContent='Rabais Early Bird : encore '+j+' jours et '+h+' h.';
+  var T={
+    fr:{
+      title:'Slay the Rot — Bientôt disponible',
+      madeBadge:'Fait au Canada',
+      soon:'Bientôt disponible',
+      tagline:'Le journal anti-burnout qui se joue comme un roguelike. Une carte, 14 jours, un crayon, quelques minutes par jour. Zéro lotus, zéro morale.',
+      heroNote:"Les précommandes ouvrent bientôt. Les premiers à embarquer partent avec du loot que personne d'autre va avoir.",
+      ctaBonus:'Voir les bonus de précommande',
+      ctaTiers:'Voir les paliers',
+      runTitle:'Une run de 14 jours. Tu choisis ta route.',
+      runP:"Chaque run commence par une carte. Chaque rond, c'est un événement : une page qui t'attend plus loin dans le livre. Tu suis un seul chemin, une branche par jour, jusqu'au boss.",
+      nCombat:'Sortir de ton système ce qui te gruge en arrière-plan, pis le neutraliser pour de bon.',
+      nReset:"Faire redescendre la pression du corps pis vider la mémoire vive quand t'es en overheat.",
+      nHealing:"Regagner des HP en remarquant ce qui va déjà bien pis en te rappelant ce que t'as déjà survécu.",
+      nOracle:'Regarder une vérité en face pour réaligner tes stats sur ce qui compte vraiment pour toi.',
+      nInspection:"Prendre des données concrètes sur ton corps, ton temps ou ton budget pour voir clair avant d'agir.",
+      nShop:'Te gâter pour vrai pis recharger ta jauge de plaisir, sans avoir à te justifier.',
+      nBoss:"Tout ce que t'as farmé pendant la run, tu le ramènes pour un combat final en 3 phases.",
+      bonusTitle:'Bonus de précommande.',
+      bonusP:'Du loot réservé à ceux qui embarquent avant la sortie.',
+      b1t:'Prix Early Bird',
+      b1p:'15 $ au lieu de 30 $. Le prix public à la sortie sera le double.',
+      b2t:'Le panthéon des backers',
+      b2p:'Ton nom imprimé dans le livre, avec tous ceux qui ont rendu la Run 1 possible.',
+      b3t:'Premier servi',
+      b3p:'Ton exemplaire part dès la fin de la précommande, avant la sortie publique.',
+      tiersTitle:'Les paliers.',
+      t1:'Supporter le projet',
+      t1a:'Appui direct à la production de la Run 1',
+      t1b:'Version numérique complète à la sortie',
+      t1c:'Ton nom dans le panthéon des backers',
+      t2:'Précommande officielle',
+      t2a:'Ton exemplaire physique ou numérique réservé',
+      t2b:'Le journal complet : 4 mois, 8 runs',
+      t2c:'Le manuel du Player au fond du livre',
+      t2d:'Tous les bonus de précommande',
+      t3:'Prix régulier futur',
+      t3a:'Prix public à la sortie sur Amazon',
+      t3b:'Même loot, deux fois le prix',
+      tiersNote:'Les précommandes ne sont pas encore ouvertes. Reviens bientôt.',
+      caTitle:'Fait au Canada.',
+      caP:'Écrit, illustré et conçu au Canada, par du monde fatigué, pour du monde fatigué.',
+      footer:'Slay the Rot. Fait au Canada 🍁 par du monde fatigué, pour du monde fatigué.'
+    },
+    en:{
+      title:'Slay the Rot — Coming soon',
+      madeBadge:'Made in Canada',
+      soon:'Coming soon',
+      tagline:'The anti-burnout journal that plays like a roguelike. One map, 14 days, a pencil, a few minutes a day. No lotus, no lectures.',
+      heroNote:"Pre-orders open soon. The first ones in walk away with loot nobody else gets.",
+      ctaBonus:'See pre-order bonuses',
+      ctaTiers:'See the tiers',
+      runTitle:'A 14-day run. You pick your path.',
+      runP:'Every run starts with a map. Each circle is an event: a page waiting for you further in the book. You follow one path, one branch a day, all the way to the boss.',
+      nCombat:'Get the stuff gnawing at you in the background out of your system, and take it down for good.',
+      nReset:"Bring your body's pressure back down and clear your RAM when you're overheating.",
+      nHealing:"Regain HP by noticing what's already going well and remembering what you've already survived.",
+      nOracle:'Face a hard truth to realign your stats with what really matters to you.',
+      nInspection:'Collect hard data on your body, your time or your budget to see clearly before you act.',
+      nShop:'Treat yourself for real and refill your fun meter, no justification needed.',
+      nBoss:'Everything you farmed during the run, you bring to a 3-phase final fight.',
+      bonusTitle:'Pre-order bonuses.',
+      bonusP:'Loot reserved for those who jump in before launch.',
+      b1t:'Early Bird price',
+      b1p:'$15 instead of $30. The public price at launch will be double.',
+      b2t:'The backers’ hall of fame',
+      b2p:'Your name printed in the book, alongside everyone who made Run 1 possible.',
+      b3t:'First in line',
+      b3p:'Your copy ships as soon as pre-orders close, before the public release.',
+      tiersTitle:'The tiers.',
+      t1:'Support the project',
+      t1a:'Direct support for producing Run 1',
+      t1b:'Full digital edition at launch',
+      t1c:'Your name in the backers’ hall of fame',
+      t2:'Official pre-order',
+      t2a:'Your physical or digital copy, reserved',
+      t2b:'The full journal: 4 months, 8 runs',
+      t2c:'The Player’s manual at the back of the book',
+      t2d:'All pre-order bonuses',
+      t3:'Future regular price',
+      t3a:'Public price at launch on Amazon',
+      t3b:'Same loot, twice the price',
+      tiersNote:"Pre-orders aren't open yet. Check back soon.",
+      caTitle:'Made in Canada.',
+      caP:'Written, illustrated and designed in Canada, by tired people, for tired people.',
+      footer:'Slay the Rot. Made in Canada 🍁 by tired people, for tired people.'
+    }
+  };
+  var KEY='str-lang',btns=document.querySelectorAll('.lang button'),els=document.querySelectorAll('[data-i18n]');
+  var prices={fr:['10 $','15 $','30 $'],en:['$10','$15','$30']},priceEls=document.querySelectorAll('.tier .price');
+  function apply(l){
+    var d=T[l];
+    els.forEach(function(e){var v=d[e.dataset.i18n];if(v!=null)e.textContent=v});
+    priceEls.forEach(function(e,i){e.textContent=prices[l][i]});
+    document.documentElement.lang=l==='fr'?'fr-CA':'en-CA';
+    document.title=d.title;
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===l))});
   }
-  tick();setInterval(tick,6e4);
+  var saved=null;try{saved=localStorage.getItem(KEY)}catch(e){}
+  var nav=(navigator.languages&&navigator.languages[0])||navigator.language||'fr';
+  apply(saved==='fr'||saved==='en'?saved:(/^fr\b/i.test(nav)?'fr':'en'));
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    apply(b.dataset.lang);
+    try{localStorage.setItem(KEY,b.dataset.lang)}catch(e){}
+  })});
 })();
 </script>
 </body>
