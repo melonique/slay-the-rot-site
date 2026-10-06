@@ -247,8 +247,9 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
   };
   var KEY='str-lang',btns=document.querySelectorAll('.lang button'),els=document.querySelectorAll('[data-i18n]');
   var lang='fr',URL_='https://melonique.github.io/slay-the-rot-site/';
-  // Adresse du service d'inscription (Formspree, Getform, etc.). Vide = formulaire désactivé.
-  var FORM_ENDPOINT='';
+  // Formulaire Google qui reçoit les inscriptions (les réponses arrivent dans Google Sheets).
+  var GFORM='https://docs.google.com/forms/d/e/1FAIpQLSetQkMARmIN0wHMBZ6Zd_AG7iyeo1TwHibDD3VLXPXS3HoV6Q/formResponse',
+      F_EMAIL='entry.768777685',F_LANG='entry.1044667989';
   function apply(l){
     var d=T[l];
     els.forEach(function(e){var v=d[e.dataset.i18n];if(v!=null)e.textContent=v});
@@ -283,10 +284,11 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
     var email=form.email.value.trim(),btn=form.querySelector('button');
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){say('newsBad','err');form.email.focus();return}
     if(form._gotcha.value)return;
-    if(!FORM_ENDPOINT){say('newsErr','err');return}
     btn.disabled=true;
-    fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({email:email,langue:lang})})
-      .then(function(r){if(!r.ok)throw r;form.reset();say('newsOk','ok')})
+    var body=new URLSearchParams();body.append(F_EMAIL,email);body.append(F_LANG,lang.toUpperCase());
+    // Google ne renvoie pas de réponse lisible (no-cors) : seule une panne réseau est détectable.
+    fetch(GFORM,{method:'POST',mode:'no-cors',body:body})
+      .then(function(){form.reset();say('newsOk','ok')})
       .catch(function(){say('newsErr','err')})
       .then(function(){btn.disabled=false});
   });
