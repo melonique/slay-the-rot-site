@@ -250,6 +250,8 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
   // Formulaire Google qui reçoit les inscriptions (les réponses arrivent dans Google Sheets).
   var GFORM='https://docs.google.com/forms/d/e/1FAIpQLSetQkMARmIN0wHMBZ6Zd_AG7iyeo1TwHibDD3VLXPXS3HoV6Q/formResponse',
       F_EMAIL='entry.768777685',F_LANG='entry.1044667989';
+  // Événements Google Analytics (ignorés si gtag est bloqué).
+  function track(name,params){try{if(typeof gtag==='function')gtag('event',name,params)}catch(e){}}
   function apply(l){
     var d=T[l];
     els.forEach(function(e){var v=d[e.dataset.i18n];if(v!=null)e.textContent=v});
@@ -271,9 +273,13 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
     };
     document.querySelectorAll('[data-share]').forEach(function(a){a.href=m[a.dataset.share]});
   }
+  document.querySelectorAll('[data-share]').forEach(function(a){a.addEventListener('click',function(){
+    track('share',{method:a.dataset.share,content_type:'page',item_id:'slay-the-rot',language:lang});
+  })});
   var copy=document.getElementById('copy');
   copy.addEventListener('click',function(){
     var lbl=copy.querySelector('span');
+    track('share',{method:'copy_link',content_type:'page',item_id:'slay-the-rot',language:lang});
     function done(){lbl.textContent=T[lang].shareCopied;setTimeout(function(){lbl.textContent=T[lang].shareCopy},2000)}
     if(navigator.clipboard)navigator.clipboard.writeText(URL_).then(done,function(){prompt('',URL_)});else prompt('',URL_);
   });
@@ -288,7 +294,7 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
     var body=new URLSearchParams();body.append(F_EMAIL,email);body.append(F_LANG,lang.toUpperCase());
     // Google ne renvoie pas de réponse lisible (no-cors) : seule une panne réseau est détectable.
     fetch(GFORM,{method:'POST',mode:'no-cors',body:body})
-      .then(function(){form.reset();say('newsOk','ok')})
+      .then(function(){form.reset();say('newsOk','ok');track('sign_up',{method:'newsletter',language:lang})})
       .catch(function(){say('newsErr','err')})
       .then(function(){btn.disabled=false});
   });
@@ -296,6 +302,7 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
   var nav=(navigator.languages&&navigator.languages[0])||navigator.language||'fr';
   apply(saved==='fr'||saved==='en'?saved:(/^fr\b/i.test(nav)?'fr':'en'));
   btns.forEach(function(b){b.addEventListener('click',function(){
+    if(b.dataset.lang!==lang)track('language_change',{language:b.dataset.lang});
     apply(b.dataset.lang);
     try{localStorage.setItem(KEY,b.dataset.lang)}catch(e){}
   })});
