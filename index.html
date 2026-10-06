@@ -42,26 +42,26 @@ a{color:inherit}
 .node h3{margin-bottom:6px}
 .node p{margin:0;color:var(--mute)}
 .node.boss-node{grid-column:1/-1;background:#2c2438}
-/* bonuses */
-.loot{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:10px}
-.loot div{background:var(--panel);border:2px solid var(--line);border-radius:8px;padding:22px}
-.loot b{display:block;font-size:2rem;margin-bottom:8px}
-.loot h3{margin-bottom:8px}
-.loot p{margin:0;color:var(--mute)}
-/* pricing */
-.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch;margin-top:10px}
-.tier{background:var(--panel);border:2px solid var(--line);border-radius:8px;padding:26px;display:flex;flex-direction:column}
-.tier .price{font:800 3.2rem "Bricolage Grotesque",sans-serif;margin:8px 0}
-.tier ul{padding-left:18px;margin:0 0 22px;color:var(--mute)}
-.tier.hot{border-color:var(--hp);background:#2c2438;transform:translateY(-10px)}
-.tier.ghost .price{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--hp)}
-.tag{align-self:flex-start;background:var(--gold);color:#2a2008;font-weight:700;font-size:.85rem;padding:3px 10px;border-radius:4px}
-.note{margin-top:30px;color:var(--mute)}
+/* news */
+.news{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;max-width:620px}
+.news input{flex:1 1 260px;min-width:0;font:500 1rem "DM Sans",sans-serif;padding:14px 16px;border-radius:6px;border:2px solid var(--line);background:#12161f;color:var(--bone)}
+.news input::placeholder{color:var(--mute)}
+.news input:focus{border-color:var(--xp);outline:none}
+.news button{font:700 1rem "DM Sans",sans-serif;cursor:pointer}
+.news button[disabled]{opacity:.6;cursor:wait}
+.msg{min-height:1.6em;margin-top:12px;font-weight:700}
+.msg.ok{color:var(--healing)}.msg.err{color:var(--hp)}
+.hp{position:absolute;left:-9999px}
+/* share */
+.share{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+.share a,.share button{display:inline-flex;align-items:center;gap:8px;font:700 1rem "DM Sans",sans-serif;padding:12px 18px;border-radius:6px;border:2px solid var(--line);background:var(--panel);color:var(--bone);text-decoration:none;cursor:pointer}
+.share a:hover,.share button:hover{border-color:var(--bone)}
+.share svg{width:18px;height:18px;fill:currentColor}
 /* canada */
 .ca{display:flex;gap:22px;align-items:center}
 .ca .leaf{font-size:4rem;line-height:1}
 footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);font-size:.95rem}
-@media(max-width:820px){.tiers,.loot,.nodes{grid-template-columns:1fr}.tier.hot{transform:none}.ca{flex-direction:column;align-items:flex-start}}
+@media(max-width:820px){.nodes{grid-template-columns:1fr}.ca{flex-direction:column;align-items:flex-start}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
@@ -78,10 +78,10 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
   <span class="soon" data-i18n="soon">Bientôt disponible</span>
   <h1>Slay the Rot.</h1>
   <p class="sub" data-i18n="tagline">Le journal anti-burnout qui se joue comme un roguelike. Une carte, 14 jours, un crayon, quelques minutes par jour. Zéro lotus, zéro morale.</p>
-  <p data-i18n="heroNote">Les précommandes ouvrent bientôt. Les premiers à embarquer partent avec du loot que personne d'autre va avoir.</p>
+  <p data-i18n="heroNote">Le livre s'en vient. Laisse ton courriel pour savoir quand il sort, pis passe le mot à ceux qui en ont besoin.</p>
   <div class="cta">
-    <a class="btn main" href="#bonus" data-i18n="ctaBonus">Voir les bonus de précommande</a>
-    <a class="btn alt" href="#paliers" data-i18n="ctaTiers">Voir les paliers</a>
+    <a class="btn main" href="#nouvelles" data-i18n="ctaNews">Rester informé</a>
+    <a class="btn alt" href="#partager" data-i18n="ctaShare">Partager</a>
   </div>
 </div>
 </header>
@@ -125,37 +125,31 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
   </div>
 </div></section>
 
-<section id="bonus"><div class="wrap">
-  <h2 data-i18n="bonusTitle">Bonus de précommande.</h2>
-  <p style="color:var(--mute)" data-i18n="bonusP">Du loot réservé à ceux qui embarquent avant la sortie.</p>
-  <div class="loot">
-    <div><b>−50 %</b><h3 data-i18n="b1t">Prix Early Bird</h3><p data-i18n="b1p">15 $ au lieu de 30 $. Le prix public à la sortie sera le double.</p></div>
-    <div><b>🏛️</b><h3 data-i18n="b2t">Le panthéon des backers</h3><p data-i18n="b2p">Ton nom imprimé dans le livre, avec tous ceux qui ont rendu la Run 1 possible.</p></div>
-    <div><b>📦</b><h3 data-i18n="b3t">Premier servi</h3><p data-i18n="b3p">Ton exemplaire part dès la fin de la précommande, avant la sortie publique.</p></div>
-  </div>
+<section id="nouvelles"><div class="wrap">
+  <h2 data-i18n="newsTitle">Reste informé.</h2>
+  <p style="color:var(--mute)" data-i18n="newsP">Un courriel quand le livre sort. Pas de spam, pas de citations inspirantes.</p>
+  <form class="news" id="news" novalidate>
+    <label for="email" class="hp" data-i18n="emailLabel">Ton courriel</label>
+    <input id="email" name="email" type="email" autocomplete="email" required placeholder="toi@exemple.com" data-i18n-ph="emailPh">
+    <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button class="btn main" type="submit" data-i18n="newsBtn">M'avertir</button>
+  </form>
+  <p class="msg" id="newsMsg" role="status" aria-live="polite"></p>
 </div></section>
 
-<section id="paliers"><div class="wrap">
-  <h2 data-i18n="tiersTitle">Les paliers.</h2>
-  <div class="tiers">
-    <div class="tier">
-      <h3 data-i18n="t1">Supporter le projet</h3>
-      <div class="price">10 $</div>
-      <ul><li data-i18n="t1a">Appui direct à la production de la Run 1</li><li data-i18n="t1b">Version numérique complète à la sortie</li><li data-i18n="t1c">Ton nom dans le panthéon des backers</li></ul>
-    </div>
-    <div class="tier hot">
-      <span class="tag">−50 % Early Bird</span>
-      <h3 style="margin-top:10px" data-i18n="t2">Précommande officielle</h3>
-      <div class="price">15 $</div>
-      <ul><li data-i18n="t2a">Ton exemplaire physique ou numérique réservé</li><li data-i18n="t2b">Le journal complet : 4 mois, 8 runs</li><li data-i18n="t2c">Le manuel du Player au fond du livre</li><li data-i18n="t2d">Tous les bonus de précommande</li></ul>
-    </div>
-    <div class="tier ghost">
-      <h3 data-i18n="t3">Prix régulier futur</h3>
-      <div class="price">30 $</div>
-      <ul><li data-i18n="t3a">Prix public à la sortie sur Amazon</li><li data-i18n="t3b">Même loot, deux fois le prix</li></ul>
-    </div>
+<section id="partager"><div class="wrap">
+  <h2 data-i18n="shareTitle">Supporte le projet en le partageant.</h2>
+  <p style="color:var(--mute)" data-i18n="shareP">Tu connais quelqu'un qui est à boutte? Envoie-lui le lien. C'est la meilleure façon d'aider le projet à voir le jour.</p>
+  <div class="share">
+    <a data-share="facebook" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.5 1.6-1.5h1.7V4.4c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v2.4H7.6V14h2.8v8z"/></svg> Facebook</a>
+    <a data-share="x" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.2-8.3L1.8 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"/></svg> X</a>
+    <a data-share="bluesky" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.6C7.6 5.4 10.2 9 11.2 11c1-2 3.6-5.6 6-7.4 1.7-1.3 4.5-2.3 4.5.9 0 .6-.4 5.3-.6 6-.7 2.6-3.3 3.2-5.6 2.8 4 .7 5 3 2.8 5.2-4.2 4.3-6-1.1-6.5-2.5l-.1-.3-.1.3c-.5 1.4-2.3 6.8-6.5 2.5-2.2-2.2-1.2-4.5 2.8-5.2-2.3.4-4.9-.2-5.6-2.8-.2-.7-.6-5.4-.6-6 0-3.2 2.8-2.2 4.5-.9z"/></svg> Bluesky</a>
+    <a data-share="linkedin" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zm7 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg> LinkedIn</a>
+    <a data-share="reddit" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.1a2.2 2.2 0 0 0-3.7-1.6 10.8 10.8 0 0 0-5.8-1.8l1-4.6 3.2.7a1.6 1.6 0 1 0 .2-1l-3.6-.8a.5.5 0 0 0-.6.4l-1.1 5.3a10.9 10.9 0 0 0-5.9 1.8 2.2 2.2 0 1 0-2.4 3.6 4.3 4.3 0 0 0 0 .7c0 3.6 4.2 6.5 9.3 6.5s9.3-2.9 9.3-6.5a4.3 4.3 0 0 0 0-.7 2.2 2.2 0 0 0 1.1-2zM7 13.7a1.6 1.6 0 1 1 1.6 1.6A1.6 1.6 0 0 1 7 13.7zm8.9 4.2a5.6 5.6 0 0 1-3.9 1.2 5.6 5.6 0 0 1-3.9-1.2.4.4 0 0 1 .6-.6 4.8 4.8 0 0 0 3.3.9 4.8 4.8 0 0 0 3.3-.9.4.4 0 1 1 .6.6zm-.4-2.6a1.6 1.6 0 1 1 1.6-1.6 1.6 1.6 0 0 1-1.6 1.6z"/></svg> Reddit</a>
+    <a data-share="whatsapp" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.8 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1a17 17 0 0 1-1.7-.6 13.4 13.4 0 0 1-5.1-4.5 5.8 5.8 0 0 1-1.2-3.1 3.3 3.3 0 0 1 1-2.5 1.1 1.1 0 0 1 .8-.4h.6c.2 0 .4 0 .7.5l1 2.3a.6.6 0 0 1 0 .6 2.3 2.3 0 0 1-.4.6c-.2.2-.4.4-.2.8a9 9 0 0 0 1.7 2.1 8.2 8.2 0 0 0 2.4 1.5c.3.2.5.1.7-.1l1-1.2c.2-.3.4-.3.7-.2l2.1 1c.3.2.5.2.6.4a2.7 2.7 0 0 1-.2 1.5z"/></svg> WhatsApp</a>
+    <a data-share="mail" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.2L4 7.4V17h16V7.4z"/></svg> <span data-i18n="shareMail">Courriel</span></a>
+    <button type="button" id="copy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a1 1 0 0 1 0-1.4l3.5-3.5a3 3 0 0 1 4.2 4.2l-2.1 2.1a1 1 0 0 1-1.4-1.4l2.1-2.1a1 1 0 0 0-1.4-1.4L12 13.4a1 1 0 0 1-1.4 0zm2.8-2.8a1 1 0 0 1 0 1.4l-3.5 3.5a3 3 0 0 1-4.2-4.2l2.1-2.1a1 1 0 0 1 1.4 1.4l-2.1 2.1a1 1 0 0 0 1.4 1.4L12 10.6a1 1 0 0 1 1.4 0z"/></svg> <span data-i18n="shareCopy">Copier le lien</span></button>
   </div>
-  <p class="note" data-i18n="tiersNote">Les précommandes ne sont pas encore ouvertes. Reviens bientôt.</p>
 </div></section>
 
 <section id="canada"><div class="wrap ca">
@@ -176,9 +170,9 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
       madeBadge:'Fait au Canada',
       soon:'Bientôt disponible',
       tagline:'Le journal anti-burnout qui se joue comme un roguelike. Une carte, 14 jours, un crayon, quelques minutes par jour. Zéro lotus, zéro morale.',
-      heroNote:"Les précommandes ouvrent bientôt. Les premiers à embarquer partent avec du loot que personne d'autre va avoir.",
-      ctaBonus:'Voir les bonus de précommande',
-      ctaTiers:'Voir les paliers',
+      heroNote:"Le livre s'en vient. Laisse ton courriel pour savoir quand il sort, pis passe le mot à ceux qui en ont besoin.",
+      ctaNews:'Rester informé',
+      ctaShare:'Partager',
       runTitle:'Une run de 14 jours. Tu choisis ta route.',
       runP:"Chaque run commence par une carte. Chaque rond, c'est un événement : une page qui t'attend plus loin dans le livre. Tu suis un seul chemin, une branche par jour, jusqu'au boss.",
       nCombat:'Sortir de ton système ce qui te gruge en arrière-plan, pis le neutraliser pour de bon.',
@@ -188,28 +182,20 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
       nInspection:"Prendre des données concrètes sur ton corps, ton temps ou ton budget pour voir clair avant d'agir.",
       nShop:'Te gâter pour vrai pis recharger ta jauge de plaisir, sans avoir à te justifier.',
       nBoss:"Tout ce que t'as farmé pendant la run, tu le ramènes pour un combat final en 3 phases.",
-      bonusTitle:'Bonus de précommande.',
-      bonusP:'Du loot réservé à ceux qui embarquent avant la sortie.',
-      b1t:'Prix Early Bird',
-      b1p:'15 $ au lieu de 30 $. Le prix public à la sortie sera le double.',
-      b2t:'Le panthéon des backers',
-      b2p:'Ton nom imprimé dans le livre, avec tous ceux qui ont rendu la Run 1 possible.',
-      b3t:'Premier servi',
-      b3p:'Ton exemplaire part dès la fin de la précommande, avant la sortie publique.',
-      tiersTitle:'Les paliers.',
-      t1:'Supporter le projet',
-      t1a:'Appui direct à la production de la Run 1',
-      t1b:'Version numérique complète à la sortie',
-      t1c:'Ton nom dans le panthéon des backers',
-      t2:'Précommande officielle',
-      t2a:'Ton exemplaire physique ou numérique réservé',
-      t2b:'Le journal complet : 4 mois, 8 runs',
-      t2c:'Le manuel du Player au fond du livre',
-      t2d:'Tous les bonus de précommande',
-      t3:'Prix régulier futur',
-      t3a:'Prix public à la sortie sur Amazon',
-      t3b:'Même loot, deux fois le prix',
-      tiersNote:'Les précommandes ne sont pas encore ouvertes. Reviens bientôt.',
+      newsTitle:'Reste informé.',
+      newsP:'Un courriel quand le livre sort. Pas de spam, pas de citations inspirantes.',
+      emailLabel:'Ton courriel',
+      emailPh:'toi@exemple.com',
+      newsBtn:"M'avertir",
+      newsOk:"C'est noté! On t'écrit dès que le livre sort.",
+      newsBad:'Entre une adresse courriel valide.',
+      newsErr:'Oups, ça a pas marché. Réessaie dans un instant.',
+      shareTitle:'Supporte le projet en le partageant.',
+      shareP:"Tu connais quelqu'un qui est à boutte? Envoie-lui le lien. C'est la meilleure façon d'aider le projet à voir le jour.",
+      shareMail:'Courriel',
+      shareCopy:'Copier le lien',
+      shareCopied:'Lien copié!',
+      shareText:'Slay the Rot : le journal anti-burnout qui se joue comme un roguelike. Fait au Canada.',
       caTitle:'Fait au Canada.',
       caP:'Écrit, illustré et conçu au Canada, par du monde fatigué, pour du monde fatigué.',
       footer:'Slay the Rot. Fait au Canada 🍁 par du monde fatigué, pour du monde fatigué.'
@@ -219,9 +205,9 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
       madeBadge:'Made in Canada',
       soon:'Coming soon',
       tagline:'The anti-burnout journal that plays like a roguelike. One map, 14 days, a pencil, a few minutes a day. No lotus, no lectures.',
-      heroNote:"Pre-orders open soon. The first ones in walk away with loot nobody else gets.",
-      ctaBonus:'See pre-order bonuses',
-      ctaTiers:'See the tiers',
+      heroNote:"The book is on its way. Leave your email to hear when it's out, and pass the word to anyone who needs it.",
+      ctaNews:'Stay updated',
+      ctaShare:'Share',
       runTitle:'A 14-day run. You pick your path.',
       runP:'Every run starts with a map. Each circle is an event: a page waiting for you further in the book. You follow one path, one branch a day, all the way to the boss.',
       nCombat:'Get the stuff gnawing at you in the background out of your system, and take it down for good.',
@@ -231,43 +217,70 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
       nInspection:'Collect hard data on your body, your time or your budget to see clearly before you act.',
       nShop:'Treat yourself for real and refill your fun meter, no justification needed.',
       nBoss:'Everything you farmed during the run, you bring to a 3-phase final fight.',
-      bonusTitle:'Pre-order bonuses.',
-      bonusP:'Loot reserved for those who jump in before launch.',
-      b1t:'Early Bird price',
-      b1p:'$15 instead of $30. The public price at launch will be double.',
-      b2t:'The backers’ hall of fame',
-      b2p:'Your name printed in the book, alongside everyone who made Run 1 possible.',
-      b3t:'First in line',
-      b3p:'Your copy ships as soon as pre-orders close, before the public release.',
-      tiersTitle:'The tiers.',
-      t1:'Support the project',
-      t1a:'Direct support for producing Run 1',
-      t1b:'Full digital edition at launch',
-      t1c:'Your name in the backers’ hall of fame',
-      t2:'Official pre-order',
-      t2a:'Your physical or digital copy, reserved',
-      t2b:'The full journal: 4 months, 8 runs',
-      t2c:'The Player’s manual at the back of the book',
-      t2d:'All pre-order bonuses',
-      t3:'Future regular price',
-      t3a:'Public price at launch on Amazon',
-      t3b:'Same loot, twice the price',
-      tiersNote:"Pre-orders aren't open yet. Check back soon.",
+      newsTitle:'Stay updated.',
+      newsP:'One email when the book is out. No spam, no inspirational quotes.',
+      emailLabel:'Your email',
+      emailPh:'you@example.com',
+      newsBtn:'Notify me',
+      newsOk:"You're on the list! We'll email you as soon as the book is out.",
+      newsBad:'Please enter a valid email address.',
+      newsErr:"Oops, that didn't work. Try again in a moment.",
+      shareTitle:'Support the project by sharing it.',
+      shareP:"Know someone who's running on empty? Send them the link. It's the best way to help this project come to life.",
+      shareMail:'Email',
+      shareCopy:'Copy link',
+      shareCopied:'Link copied!',
+      shareText:'Slay the Rot: the anti-burnout journal that plays like a roguelike. Made in Canada.',
       caTitle:'Made in Canada.',
       caP:'Written, illustrated and designed in Canada, by tired people, for tired people.',
       footer:'Slay the Rot. Made in Canada 🍁 by tired people, for tired people.'
     }
   };
   var KEY='str-lang',btns=document.querySelectorAll('.lang button'),els=document.querySelectorAll('[data-i18n]');
-  var prices={fr:['10 $','15 $','30 $'],en:['$10','$15','$30']},priceEls=document.querySelectorAll('.tier .price');
+  var lang='fr',URL_='https://melonique.github.io/slay-the-rot-site/';
+  // Adresse du service d'inscription (Formspree, Getform, etc.). Vide = formulaire désactivé.
+  var FORM_ENDPOINT='';
   function apply(l){
     var d=T[l];
     els.forEach(function(e){var v=d[e.dataset.i18n];if(v!=null)e.textContent=v});
-    priceEls.forEach(function(e,i){e.textContent=prices[l][i]});
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(e){e.placeholder=d[e.dataset.i18nPh]});
+    lang=l;shareLinks();
     document.documentElement.lang=l==='fr'?'fr-CA':'en-CA';
     document.title=d.title;
     btns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===l))});
   }
+  function shareLinks(){
+    var u=encodeURIComponent(URL_),t=encodeURIComponent(T[lang].shareText),m={
+      facebook:'https://www.facebook.com/sharer/sharer.php?u='+u,
+      x:'https://x.com/intent/post?text='+t+'&url='+u,
+      bluesky:'https://bsky.app/intent/compose?text='+t+'%20'+u,
+      linkedin:'https://www.linkedin.com/sharing/share-offsite/?url='+u,
+      reddit:'https://www.reddit.com/submit?url='+u+'&title='+t,
+      whatsapp:'https://wa.me/?text='+t+'%20'+u,
+      mail:'mailto:?subject='+encodeURIComponent('Slay the Rot')+'&body='+t+'%0A%0A'+u
+    };
+    document.querySelectorAll('[data-share]').forEach(function(a){a.href=m[a.dataset.share]});
+  }
+  var copy=document.getElementById('copy');
+  copy.addEventListener('click',function(){
+    var lbl=copy.querySelector('span');
+    function done(){lbl.textContent=T[lang].shareCopied;setTimeout(function(){lbl.textContent=T[lang].shareCopy},2000)}
+    if(navigator.clipboard)navigator.clipboard.writeText(URL_).then(done,function(){prompt('',URL_)});else prompt('',URL_);
+  });
+  var form=document.getElementById('news'),msg=document.getElementById('newsMsg');
+  function say(k,c){msg.textContent=T[lang][k];msg.className='msg '+c}
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var email=form.email.value.trim(),btn=form.querySelector('button');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){say('newsBad','err');form.email.focus();return}
+    if(form._gotcha.value)return;
+    if(!FORM_ENDPOINT){say('newsErr','err');return}
+    btn.disabled=true;
+    fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({email:email,langue:lang})})
+      .then(function(r){if(!r.ok)throw r;form.reset();say('newsOk','ok')})
+      .catch(function(){say('newsErr','err')})
+      .then(function(){btn.disabled=false});
+  });
   var saved=null;try{saved=localStorage.getItem(KEY)}catch(e){}
   var nav=(navigator.languages&&navigator.languages[0])||navigator.language||'fr';
   apply(saved==='fr'||saved==='en'?saved:(/^fr\b/i.test(nav)?'fr':'en'));
