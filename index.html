@@ -77,6 +77,11 @@ a{color:inherit}
 .news input::placeholder{color:var(--mute)}
 .news input:focus{border-color:var(--xp);outline:none}
 .news button{font:700 1rem "DM Sans",sans-serif;cursor:pointer}
+.beta{flex-basis:100%;display:flex;gap:12px;align-items:flex-start;background:var(--panel);border:2px solid var(--line);border-radius:6px;padding:14px 16px;cursor:pointer}
+.beta:has(input:checked){border-color:var(--xp)}
+.beta input{width:20px;height:20px;margin:2px 0 0;flex:none;accent-color:var(--xp);cursor:pointer}
+.beta b{display:block}
+.beta small{color:var(--mute);font-size:.92rem}
 .news button[disabled]{opacity:.6;cursor:wait}
 .msg{min-height:1.6em;margin-top:12px;font-weight:700}
 .msg.ok{color:var(--healing)}.msg.err{color:var(--hp)}
@@ -101,6 +106,7 @@ a{color:inherit}
 .foot nav{display:flex;gap:18px;flex-wrap:wrap}
 .foot button{font:inherit;color:inherit;background:none;border:0;padding:0;text-decoration:underline;cursor:pointer}
 footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);font-size:.95rem}
+@media(max-width:600px){.news button{order:3;flex-basis:100%}}
 @media(max-width:820px){.nodes{grid-template-columns:1fr}.ca{flex-direction:column;align-items:flex-start}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
@@ -173,9 +179,10 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
     <input id="email" name="email" type="email" autocomplete="email" required placeholder="toi@exemple.com" data-i18n-ph="emailPh">
     <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
     <button class="btn main" type="submit" data-i18n="newsBtn">M'avertir</button>
+    <label class="beta"><input type="checkbox" name="beta" id="beta"><span><b data-i18n="betaLabel">Je veux être bêta-testeur</b><small data-i18n="betaHint">Teste le journal avant sa sortie et aide-nous à l'améliorer. On t'écrit si on a besoin de toi.</small></span></label>
   </form>
   <p class="msg" id="newsMsg" role="status" aria-live="polite"></p>
-  <p class="legal"><span data-i18n="newsLegal">En t'inscrivant, tu acceptes de recevoir des courriels de Slay the Rot à propos de la sortie du livre. Tu peux te désabonner en tout temps.</span> <a href="confidentialite.html" data-i18n="privacyLink">Politique de confidentialité</a></p>
+  <p class="legal"><span data-i18n="newsLegal">En t'inscrivant, tu acceptes de recevoir des courriels de Slay the Rot à propos de la sortie du livre (et de la bêta, si tu as coché la case). Tu peux te désabonner en tout temps.</span> <a href="confidentialite.html" data-i18n="privacyLink">Politique de confidentialité</a></p>
 </div></section>
 
 <section id="partager"><div class="wrap">
@@ -236,6 +243,9 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
       emailLabel:'Ton courriel',
       emailPh:'toi@exemple.com',
       newsBtn:"M'avertir",
+      betaLabel:'Je veux être bêta-testeur',
+      betaHint:"Teste le journal avant sa sortie et aide-nous à l'améliorer. On t'écrit si on a besoin de toi.",
+      newsOkBeta:"C'est noté! On t'écrit dès que le livre sort, pis on te fait signe pour la bêta.",
       newsOk:"C'est noté! On t'écrit dès que le livre sort.",
       newsBad:'Entre une adresse courriel valide.',
       newsErr:'Oups, ça a pas marché. Réessaie dans un instant.',
@@ -248,7 +258,7 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
       caTitle:'Fait au Canada.',
       caP:'Écrit, illustré et conçu au Canada, par du monde fatigué, pour du monde fatigué.',
       footer:'Slay the Rot. Fait au Canada 🍁 par du monde fatigué, pour du monde fatigué.',
-      newsLegal:"En t'inscrivant, tu acceptes de recevoir des courriels de Slay the Rot à propos de la sortie du livre. Tu peux te désabonner en tout temps.",
+      newsLegal:"En t'inscrivant, tu acceptes de recevoir des courriels de Slay the Rot à propos de la sortie du livre (et de la bêta, si tu as coché la case). Tu peux te désabonner en tout temps.",
       privacyLink:'Politique de confidentialité',
       cookieManage:'Témoins',
       cookieText:"On aimerait utiliser Google Analytics pour savoir combien de monde passe ici et ce qui est partagé. Ça dépose des témoins (cookies) dans ton navigateur.",
@@ -278,6 +288,9 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
       emailLabel:'Your email',
       emailPh:'you@example.com',
       newsBtn:'Notify me',
+      betaLabel:'I want to be a beta tester',
+      betaHint:"Try the journal before launch and help us make it better. We'll email you if we need you.",
+      newsOkBeta:"You're on the list! We'll email you when the book is out, and reach out about the beta.",
       newsOk:"You're on the list! We'll email you as soon as the book is out.",
       newsBad:'Please enter a valid email address.',
       newsErr:"Oops, that didn't work. Try again in a moment.",
@@ -290,7 +303,7 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
       caTitle:'Made in Canada.',
       caP:'Written, illustrated and designed in Canada, by tired people, for tired people.',
       footer:'Slay the Rot. Made in Canada 🍁 by tired people, for tired people.',
-      newsLegal:'By signing up, you agree to receive emails from Slay the Rot about the book launch. You can unsubscribe at any time.',
+      newsLegal:'By signing up, you agree to receive emails from Slay the Rot about the book launch (and the beta, if you checked the box). You can unsubscribe at any time.',
       privacyLink:'Privacy policy',
       cookieManage:'Cookies',
       cookieText:"We'd like to use Google Analytics to see how many people stop by and what gets shared. It stores cookies in your browser.",
@@ -303,7 +316,7 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
   var lang='fr',URL_='https://melonique.github.io/slay-the-rot-site/';
   // Formulaire Google qui reçoit les inscriptions (les réponses arrivent dans Google Sheets).
   var GFORM='https://docs.google.com/forms/d/e/1FAIpQLSetQkMARmIN0wHMBZ6Zd_AG7iyeo1TwHibDD3VLXPXS3HoV6Q/formResponse',
-      F_EMAIL='entry.768777685',F_LANG='entry.1044667989';
+      F_EMAIL='entry.768777685',F_LANG='entry.1044667989',F_BETA='entry.795397541';
   // Événements Google Analytics (ignorés si gtag est bloqué).
   function track(name,params){try{if(typeof gtag==='function')gtag('event',name,params)}catch(e){}}
   function apply(l){
@@ -346,9 +359,10 @@ footer{padding:36px 0 60px;color:var(--mute);border-top:1px solid var(--line);fo
     if(form._gotcha.value)return;
     btn.disabled=true;
     var body=new URLSearchParams();body.append(F_EMAIL,email);body.append(F_LANG,lang.toUpperCase());
+    var beta=form.beta.checked;body.append(F_BETA,beta?'YES':'NO');
     // Google ne renvoie pas de réponse lisible (no-cors) : seule une panne réseau est détectable.
     fetch(GFORM,{method:'POST',mode:'no-cors',body:body})
-      .then(function(){form.reset();say('newsOk','ok');track('sign_up',{method:'newsletter',language:lang})})
+      .then(function(){form.reset();say(beta?'newsOkBeta':'newsOk','ok');track('sign_up',{method:'newsletter',language:lang,beta_tester:beta?'yes':'no'})})
       .catch(function(){say('newsErr','err')})
       .then(function(){btn.disabled=false});
   });
